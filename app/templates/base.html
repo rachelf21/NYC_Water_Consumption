@@ -67,7 +67,7 @@
     ></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
 
-    <title>{% block title %}NYC Water Consumption replace this{% endblock %}</title>
+    <title>{% block title %}NYC Water Cost replace this{% endblock %}</title>
   </head>
 
   <body>
@@ -76,9 +76,8 @@
       <div class="container">
         <div class="logo float-left">
           <h1 class="text-light">
-            <a href="index.html"><span>NYC Water Consumption</span></a>
+            <a href="{{url_for('index')}}"><img src="{{url_for('static', filename='img/favicon.png')}}" alt="" class="img-fluid"> <span>NYC Water Cost</span></a>
           </h1>
-          <!-- <a href="index.html"><img src="/img/logo.png" alt="" class="img-fluid"></a>-->
         </div>
 
         <nav class="nav-menu float-right">
@@ -120,14 +119,18 @@
     <!-- ======= Footer ======= -->
     <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
       <div class="footer-newsletter">
-        <div class="container">
+        <div class="container center">
           <div class="row">
             <div class="col-lg-6">
-              <h4>Open NYC Data</h4>
-              <p>View the original data here</p>
+
+                <a style="color:azure" target="_blank" href="https://data.cityofnewyork.us/Housing-Development/Water-Consumption-And-Cost-2013-2020-/66be-66yr"
+                  >              <img alt="NYC Open Data" style="width: 200px" src="{{url_for('static', filename='img/nyc_open_data_logo.png')}}" />
+                  <p>View the original data here</a
+                >
+              </p>
             </div>
-            <div class="col-lg-6">
-              <form action="" method="post"><input type="email" name="email" /><input type="submit" value="Subscribe" /></form>
+            <div class="col-lg-6 center">
+              <img style="width: 60px" src="{{url_for('static', filename='img/nycha_logo.png')}}" />
             </div>
           </div>
         </div>

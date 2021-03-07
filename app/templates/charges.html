@@ -1,5 +1,8 @@
-{% extends "base.html" %} {%block title%} NYC Water Consumption: Charges {%endblock%} {% block content %}
-
+{% extends "base.html" %} {%block title%} NYC Water Cost: Charges {%endblock%} {% block content %}
+<script src="/static/js/charges.js"></script>
+<script>
+  console.log(formatMoney(123.456));
+</script>
 <main id="main">
   <!-- ======= Light Blue Bar ======= -->
   <section class="breadcrumbs">
@@ -36,17 +39,18 @@
           <p></p>
           <table
             id="myTable"
-            class="table mx-auto table-hover table-bordered text-left w-auto table-fixed"
+            class="table mx-auto table-hover table-striped table-bordered text-left w-auto table-fixed"
             style="border: 0px red solid; width: auto; margin: 0px auto"
           >
-            <thead>
+            <thead class="text-center">
               <th>Bill ID</th>
               <th>Building</th>
+              <th>Meter</th>
               <th>Revenue Month</th>
-              <th>Start Date</th>
-              <th>End Date</th>
+              <th>Start</th>
+              <th>End</th>
+              <th>Charges</th>
               <th>Days</th>
-              <th>Current Charges</th>
             </thead>
 
             <tbody>
@@ -54,11 +58,17 @@
               <tr>
                 <td>{{b.bill_id }}</td>
                 <td>{{b.building.location}}</td>
-                <td>{{b.revenue_month}}</td>
-                <td>{{b.service_start_date }}</td>
-                <td>{{b.service_end_date }}</td>
-                <td>{{ b.days }}</td>
-                <td>{{b.current_charges }}</td>
+                <td>{{b.meter.meter_number}}</td>
+                <td class="text-center">{{b.revenue_month}}</td>
+                <td class="text-nowrap">{{b.service_start_date }}</td>
+                <td class="text-nowrap">{{b.service_end_date }}</td>
+
+                <td class="text-right">
+                  <script>
+                    document.write(formatMoney("{{b.current_charges }}"));
+                  </script>
+                </td>
+                <td class="text-center">{{ b.days }}</td>
               </tr>
               {%endfor%}
             </tbody>
@@ -102,7 +112,10 @@
     <div class="container">
       <div class="section-title">
         <h2>About this Project</h2>
-        <p>Write a brief description about this project here.</p>
+        <p>
+          Monthly consumption and cost data by borough and development. Data set includes utility vendor and meter information. Data
+          retrieved from NYC Open Data. Data provided by New York City Housing Authority (NYCHA)
+        </p>
       </div>
     </div>
   </section>
@@ -120,7 +133,7 @@
     scrollCollapse: true,
     scroller: true,
     ordering: true,
-    order: [1, "asc"],
+    order: [3, "desc"],
     select: true,
     bSort: false,
   });
