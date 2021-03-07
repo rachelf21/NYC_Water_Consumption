@@ -112,7 +112,6 @@ pyls-black==0.4.6
 pyls-spyder==0.1.1
 PyNaCl==1.4.0
 pyparsing==2.4.7
-pypiwin32==223
 PyQt5==5.12.3
 PyQt5-sip==12.8.1
 PyQtWebEngine==5.12.1
