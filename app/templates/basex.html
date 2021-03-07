@@ -4,13 +4,10 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <meta content="" name="description" />
-    <meta content="" name="keywords" />
-
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}" />
 
-    <!-- Google Fonts and FontAwesome -->
+    <!-- Google Fonts FontAwesome -->
     <link
       href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap"
       rel="stylesheet"
@@ -67,48 +64,48 @@
     ></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
 
-    <title>{% block title %}NYC Water Consumption replace this{% endblock %}</title>
+    <title>{% block title %}NYC Water Consumption{% endblock %}</title>
   </head>
 
   <body>
     <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top">
+    <header id="header" class="fixed-top header-transparent">
       <div class="container">
         <div class="logo float-left">
           <h1 class="text-light">
             <a href="index.html"><span>NYC Water Consumption</span></a>
           </h1>
-          <!-- <a href="index.html"><img src="/img/logo.png" alt="" class="img-fluid"></a>-->
+
+          <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
         </div>
 
         <nav class="nav-menu float-right d-none d-lg-block">
           <ul>
-            <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li class="drop-down">
-              <a href="">Developments</a>
-              <ul>
-                <li><a href="{{ url_for('list_dev', borough=0) }}">All Boroughs</a></li>
-                <li><a href="{{ url_for('list_dev', borough=1) }}">Bronx</a></li>
-                <li><a href="{{ url_for('list_dev', borough=2) }}">Brooklyn</a></li>
-                <li><a href="{{ url_for('list_dev', borough=3) }}">Manhattan</a></li>
-                <li><a href="{{ url_for('list_dev', borough=4) }}">Queens</a></li>
-                <li><a href="{{ url_for('list_dev', borough=5) }}">Staten Island</a></li>
-              </ul>
-            </li>
-            <li class="drop-down">
-              <a href="">Buildings</a>
-              <ul>
-                <li><a href="{{ url_for('buildings', id='b0') }}">All Boroughs</a></li>
-                <li><a href="{{ url_for('buildings', id='b1') }}">Bronx</a></li>
-                <li><a href="{{ url_for('buildings', id='b2') }}">Brooklyn</a></li>
-                <li><a href="{{ url_for('buildings', id='b3') }}">Manhattan</a></li>
-                <li><a href="{{ url_for('buildings', id='b4') }}">Queens</a></li>
-                <li><a href="{{ url_for('buildings', id='b5') }}">Staten Island</a></li>
-              </ul>
-            </li>
-            <li><a href="{{ url_for('charges', bldg_id=359) }}">Charges</a></li>
+            <li class="active"><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('list_dev') }}">Developments</a></li>
+            <li><a href="services.html">Buildings</a></li>
+            <li><a href="portfolio.html">Bills</a></li>
 
-            <li><a href="{{ url_for('about')}}">About This Project</a></li>
+            <li class="drop-down">
+              <a href="">Drop Down</a>
+              <ul>
+                <li><a href="#">Drop Down 1</a></li>
+                <li class="drop-down">
+                  <a href="#">Drop Down 2</a>
+                  <ul>
+                    <li><a href="#">Deep Drop Down 1</a></li>
+                    <li><a href="#">Deep Drop Down 2</a></li>
+                    <li><a href="#">Deep Drop Down 3</a></li>
+                    <li><a href="#">Deep Drop Down 4</a></li>
+                    <li><a href="#">Deep Drop Down 5</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Drop Down 3</a></li>
+                <li><a href="#">Drop Down 4</a></li>
+                <li><a href="#">Drop Down 5</a></li>
+              </ul>
+            </li>
+            <li><a href="contact.html">About This Project</a></li>
           </ul>
         </nav>
         <!-- .nav-menu -->
@@ -116,33 +113,8 @@
     </header>
     <!-- End Header -->
 
-    {% block content %} {% endblock %}
-
-    <!-- ======= Footer ======= -->
-    <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
-      <div class="footer-newsletter">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-6">
-              <h4>Open NYC Data</h4>
-              <p>View the original data here</p>
-            </div>
-            <div class="col-lg-6">
-              <form action="" method="post"><input type="email" name="email" /><input type="submit" value="Subscribe" /></form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="container">
-        <div class="copyright">
-          &copy; Created by <strong><span>Rachel Friedman</span></strong>
-        </div>
-        <div class="credits">April 2021</div>
-      </div>
-    </footer>
-    <!-- End Footer -->
-
     <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+    {% block content %} {% endblock %}
   </body>
 </html>

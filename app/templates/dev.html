@@ -1,0 +1,122 @@
+{% extends "base.html" %} {%block title%} nYC Water Consumption: Developments {%endblock%} {% block content %}
+
+<main id="main">
+  <!-- ======= Light Blue Bar ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Developments</h2>
+        <ol>
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li><a href="{{ url_for('list_dev', borough=0) }}">Developments </a></li>
+          <li>{{borough_name}}</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+  <!-- End Light Blue Bar -->
+
+  <!-- ======= About Section ======= -->
+  <section class="about" data-aos="fade-up">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <h3>List of Developments</h3>
+          <p class="font-italic">Borough: {{borough_name}}</p>
+          <ul>
+            <li><i class="icofont-check-circled"></i> I like this check.</li>
+          </ul>
+          <img src="/static/img/about.jpg" class="img-fluid" alt="" />
+        </div>
+        <div class="col-lg-8 pt-4 pt-lg-0">
+          <p></p>
+          <table
+            id="myTable"
+            class="table mx-auto table-hover table-bordered text-left w-auto table-fixed"
+            style="border: 0px red solid; width: auto; margin: 0px auto"
+          >
+            <thead>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Borough</th>
+              <th>TDS</th>
+              <th>EDP</th>
+              <th>AMP</th>
+            </thead>
+
+            <tbody>
+              {% for d in dev %}
+              <tr>
+                <td>{{d.dev_id}}</td>
+                <td><a href="{{ url_for('buildings', id=d.dev_id) }}"> {{d.name }}</a></td>
+                <td>{{d.borough.name }}</td>
+                <td>{{d.tds }}</td>
+                <td>{{d.edp }}</td>
+                <td>{{d.amp }}</td>
+              </tr>
+              {%endfor%}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Developments Section -->
+
+  <!-- ======= Facts Section ======= -->
+  <section class="facts section-bg" data-aos="fade-up">
+    <div class="container">
+      <div class="row counters">
+        <div class="col-lg-3 col-6 text-center">
+          <span data-toggle="counter-up">107</span>
+          <p>Developments</p>
+        </div>
+
+        <div class="col-lg-3 col-6 text-center">
+          <span data-toggle="counter-up">523</span>
+          <p>Buildings</p>
+        </div>
+
+        <div class="col-lg-3 col-6 text-center">
+          <span data-toggle="counter-up">757</span>
+          <p>Meters</p>
+        </div>
+
+        <div class="col-lg-3 col-6 text-center">
+          <span data-toggle="counter-up">34,627</span>
+          <p>Bills</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Facts Section -->
+
+  <!-- ======= About Section ======= -->
+  <section class="testimonials" data-aos="fade-up">
+    <div class="container">
+      <div class="section-title">
+        <h2>About this Project</h2>
+        <p>Write a brief description about this project here.</p>
+      </div>
+    </div>
+  </section>
+  <!-- End About Section -->
+</main>
+<!-- End #main -->
+
+<script>
+  $("#myTable").DataTable({
+    //pageLength: 20,
+    paging: false,
+    filter: true,
+    deferRender: true,
+    //scrollY: 1200,
+    scrollCollapse: true,
+    scroller: true,
+    ordering: true,
+    order: [1, "asc"],
+    select: true,
+    bSort: false,
+  });
+</script>
+{% endblock content %}

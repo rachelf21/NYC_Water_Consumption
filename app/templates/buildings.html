@@ -1,0 +1,124 @@
+{% extends "base.html" %} {%block title%} NYC Water Consumption: Buildings {%endblock%} {% block content %}
+
+<main id="main">
+  <!-- ======= Light Blue Bar ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Buildings</h2>
+        <ol>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="{{ url_for('list_dev', borough=0) }}">Developments</a></li>
+          <li><a href="{{ url_for('list_dev', borough=borough_id) }}">{{borough_name}}</a></li>
+          <li>Development: {{dev_name if dev_name is not none }}</li>
+          <li>Buildings: All</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+  <!-- End Light Blue Bar -->
+
+  <!-- ======= About Section ======= -->
+  <section class="about" data-aos="fade-up">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <h3>List of Buildings</h3>
+          <span class="font-italic">Borough: {{borough_name}}</span><br />
+          <span class="font-italic">Development: {{dev_name}}</span>
+
+          <ul>
+            <li><i class="icofont-check-circled"></i> I like this check.</li>
+          </ul>
+          <img src="/static/img/about.jpg" class="img-fluid" alt="" />
+        </div>
+        <div class="col-lg-8 pt-4 pt-lg-0">
+          <p></p>
+          <table
+            id="myTable"
+            class="table mx-auto table-hover table-bordered text-left w-auto table-fixed"
+            style="border: 0px red solid; width: auto; margin: 0px auto"
+          >
+            <thead>
+              <th>Development</th>
+              <th>Bldg ID</th>
+              <th>Location</th>
+              <th>Charges</th>
+              <th>RC Code</th>
+            </thead>
+
+            <tbody>
+              {% for b in bldg %}
+              <tr>
+                <td>{{b.dev.name}}</td>
+                <td>{{b.building_id }}</td>
+                <td>{{b.location}}</td>
+                <td><a href="{{ url_for('charges', bldg_id=b.building_id) }}">View charges</a></td>
+                <td>{{b.rc_code }}</td>
+              </tr>
+              {%endfor%}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Developments Section -->
+
+  <!-- ======= Facts Section ======= -->
+  <section class="facts section-bg" data-aos="fade-up">
+    <div class="container">
+      <div class="row counters">
+        <div class="col-lg-3 col-6 text-center">
+          <span data-toggle="counter-up">107</span>
+          <p>Developments</p>
+        </div>
+
+        <div class="col-lg-3 col-6 text-center">
+          <span data-toggle="counter-up">523</span>
+          <p>Buildings</p>
+        </div>
+
+        <div class="col-lg-3 col-6 text-center">
+          <span data-toggle="counter-up">757</span>
+          <p>Meters</p>
+        </div>
+
+        <div class="col-lg-3 col-6 text-center">
+          <span data-toggle="counter-up">34,627</span>
+          <p>Bills</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Facts Section -->
+
+  <!-- ======= About Section ======= -->
+  <section class="testimonials" data-aos="fade-up">
+    <div class="container">
+      <div class="section-title">
+        <h2>About this Project</h2>
+        <p>Write a brief description about this project here.</p>
+      </div>
+    </div>
+  </section>
+  <!-- End About Section -->
+</main>
+<!-- End #main -->
+
+<script>
+  $("#myTable").DataTable({
+    //pageLength: 20,
+    paging: false,
+    filter: true,
+    deferRender: true,
+    //scrollY: 1200,
+    scrollCollapse: true,
+    scroller: true,
+    ordering: true,
+    order: [1, "asc"],
+    select: true,
+    bSort: false,
+  });
+</script>
+{% endblock content %}
