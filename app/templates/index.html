@@ -1,4 +1,4 @@
-{% extends "base.html" %} {%block title%} NYC Water Consumption {%endblock%} {% block content %}
+{% extends "base.html" %} {%block title%} NYC Water Charges {%endblock%} {% block content %}
 
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="d-flex justify-cntent-center align-items-center">
@@ -6,12 +6,12 @@
     <!-- Slide 1 -->
     <div class="carousel-item active">
       <div class="carousel-container">
-        <h2 class="animate__animated animate__fadeInDown">NYC Water <span>Consumption</span></h2>
+        <h2 class="animate__animated animate__fadeInDown">NYC Water <span>Charges</span></h2>
         <p class="animate__animated animate__fadeInUp">
-          This data is from NYC Open Data website. It contains all the bills from 2013 to 2020 for all buildings in the five boroughs of
-          NYC.
+          View water charges from 2018 until present. Pay your bills online. Log in with your assigned username. If you did not receive a
+          username, please contact our office with your TDS and EDP credentials.
         </p>
-        <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
+        <a href="{{url_for('login')}}" class="btn-get-started animate__animated animate__fadeInUp">Log In</a>
       </div>
     </div>
 
@@ -21,9 +21,9 @@
         <h2 class="animate__animated animate__fadeInDown">About this Project</h2>
         <p class="animate__animated animate__fadeInUp">
           This project was created for CISC 3810 as an example of a full stack application, using a database as part of the backend
-          technology Elaborate on this some more.
+          technology. Elaborate on this some more.
         </p>
-        <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
+        <a href="{{url_for('login')}}" class="btn-get-started animate__animated animate__fadeInUp">Log In</a>
       </div>
     </div>
 
@@ -35,7 +35,7 @@
           Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem
           mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.
         </p>
-        <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
+        <a href="" class="btn-get-started animate__animated animate__fadeInUp">Log In</a>
       </div>
     </div>
 

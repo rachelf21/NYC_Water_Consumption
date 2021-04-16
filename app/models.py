@@ -1,9 +1,13 @@
 from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from app import app, db
+from app import app, db, login_manager
 from sqlalchemy.exc import IntegrityError
+from flask_login import UserMixin
 
 
+@login_manager.user_loader
+def load_user(username):
+    return Users.query.get(username)
 
 
 class Borough(db.Model):
@@ -70,8 +74,8 @@ class Rate(db.Model):
     rate_id = db.Column(db.Integer, primary_key=True, nullable=False)
     rate_class = db.Column(db.String(50))
 
-class Bill(db.Model):
-    __tablename__ = 'bill'
+class Bills(db.Model):
+    __tablename__ = 'bills'
     __table_args__ = {'extend_existing': True }
     bill_id = db.Column('bill_id', db.Integer, primary_key=True)
     umis_bill_id = db.Column('umis_bill_id', db.String(20))
@@ -91,5 +95,15 @@ class Bill(db.Model):
     current_charges = db.Column('current_charges', db.Numeric, nullable=False)
     bill_analyzed = db.Column('bill_analyzed', db.String(10), nullable=False)
     consumption = db.Column('consumption', db.Integer, nullable=False)
-    water_and_sewer_charges = db.Column('water_and_sewer_charges', db.Numeric, nullable=False)
+    water_sewer_charges = db.Column('water_sewer_charges', db.Numeric, nullable=False)
     other_charges = db.Column('other_charges', db.Numeric, nullable=False)
+
+class Users(db.Model, UserMixin):
+    __tablename__ = 'users'
+    __table_args__ = {'extend_existing': True}
+    username = db.Column(db.String(50), primary_key=True, nullable=False)
+    dev_id = db.Column(db.Integer, db.ForeignKey("development.dev_id"), nullable=False)
+    password = db.Column(db.String(50))
+
+    def __repr__(self):
+        return self.username

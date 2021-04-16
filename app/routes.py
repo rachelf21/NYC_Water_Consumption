@@ -1,6 +1,9 @@
-from flask import render_template, request, Response
+from flask import render_template, request, redirect, url_for, flash, Response
 from app import app
-from app.models import Borough, Development, Building, Bill
+from app.forms import LoginForm
+from app.models import Borough, Development, Building, Bills, Users
+from flask_login import login_user, current_user, logout_user, login_required
+import bcrypt
 
 @app.route('/')
 def index():
@@ -9,6 +12,33 @@ def index():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+
+#%%
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('buildings', id=str(6)))
+    form = LoginForm()
+    if form.validate_on_submit():
+        userlogin = form.username.data.lower().strip()
+        user = Users.query.filter_by(username = userlogin).first()
+        print(user)
+        if user and form.password.data == user.password:
+            # login_user(user, remember=form.remember.data)
+            dev_id = user.dev_id
+            return redirect(url_for('buildings', id = str(dev_id)))
+        else:
+            flash('Login Unsuccessful. Please check your username and password.', 'danger')
+    return render_template('login.html', title='Login', form=form)
+
+#%%
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
+
 
 @app.route('/list_dev/<borough>')
 def list_dev(borough):
@@ -46,7 +76,7 @@ def buildings(id):
 @app.route('/charges/<bldg_id>')
 def charges(bldg_id):
     try:
-        bills = Bill.query.filter_by(building_id=int(bldg_id)).all()
+        bills = Bills.query.filter_by(building_id=int(bldg_id)).all()
         borough_name = bills[0].building.dev.borough.name
         borough_id = bills[0].building.dev.borough_id
         dev_id = bills[0].building.dev.dev_id
