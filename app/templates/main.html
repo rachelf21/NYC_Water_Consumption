@@ -1,0 +1,61 @@
+{% extends "base.html" %} {%block title%} NYC Water Charges {%endblock%} {% block content %}
+
+<main id="main">
+  <!-- ======= Light Blue Bar ======= -->
+  <section class="breadcrumbs" >
+    <div id="section_bar" class="container" >
+      <div class="d-flex justify-content-between align-items-center" style="border: 1px solid blue">
+        <h2>Buildings</h2>
+        <ol>
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li><a href="{{ url_for('list_dev', borough=0) }}">Developments</a></li>
+          <li><a href="{{ url_for('list_dev', borough=borough_id) }}">{{borough_name}}</a></li>
+          <li>Development: {{dev_name if dev_name is not none }}</li>
+          <li>Buildings: All</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+  <!-- End Light Blue Bar -->
+
+  <!-- ======= About Section ======= -->
+  <section class="about" data-aos="fade-up">
+    <div style="border: 0px solid red" class="container">
+        <div class="text-center">
+          <h3>Welcome, admin!</h3>
+
+          <ul>
+            <li><i class="icofont-check-circled"></i> Logged in successfully</li>
+          </ul>
+          <h3><span class="font-italic">Choose a development or building from the navigation bar to get started. </span></h3> <p>&nbsp;</p>
+          <img src="/static/img/neighborhoods.jpg" alt="" />
+
+        </div>
+      </div>
+  <!-- End Developments Section -->
+
+</main>
+<!-- End #main -->
+
+<script>
+  if ("{{visible}}" == "1") {
+    $("#section_bar").hide();
+  } else {
+    $("#section_bar").show();
+  }
+
+  $("#myTable").DataTable({
+    //pageLength: 20,
+    paging: false,
+    filter: true,
+    deferRender: true,
+    //scrollY: 1200,
+    scrollCollapse: true,
+    scroller: true,
+    ordering: true,
+    order: [1, "asc"],
+    select: true,
+    bSort: false,
+  });
+</script>
+{% endblock content %}

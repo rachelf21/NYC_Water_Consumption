@@ -107,3 +107,19 @@ class Users(db.Model, UserMixin):
 
     def __repr__(self):
         return self.username
+
+    def get_id(self):
+        try:
+            return self.username
+        except AttributeError:
+            raise NotImplementedError('No `id` attribute - override `get_id`')
+
+class Transaction(db.Model):
+    __tablename__ = 'transaction'
+    __table_args__ = {'extend_existing': True}
+    trans_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    username = db.Column(db.String(50), db.ForeignKey("users.username"), nullable=False)
+    bill_id = db.Column(db.Integer, db.ForeignKey("bills.bill_id"), nullable=False)
+    trans_date = db.Column(db.Date, nullable=False)
+    amount_paid = db.Column(db.Numeric, nullable=False)
+    balance = db.Column(db.Numeric, nullable=False)

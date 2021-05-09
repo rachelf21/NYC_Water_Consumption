@@ -1,0 +1,83 @@
+{% extends "base.html" %}{%block title%} NYC Water Charges: Payment {%endblock%} {% block content %}
+
+<main id="main">
+  <!-- ======= Light Blue Bar ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Pay Your Bill</h2>
+        <ol>
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li><a href=""">View Charges</a></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- End Light Blue Bar -->
+
+  <div style="width: 500px; margin: auto; margin-top: 10px; margin-bottom: 20px; border: 0px solid red">
+    <div class="content-section">
+      <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+          <legend class="border-bottom mb-4">Pay Bill</legend>
+          <div class="form-group">
+            {{ form.credit_card_number.label(class="form-control-label") }} {% if form.credit_card_number.errors %} {{ form.credit_card_number(class="form-control
+            form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.credit_card_number.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% else %} {{ form.credit_card_number(class="form-control form-control-lg") }} {% endif %}
+          </div>
+          <div class="form-group">
+            {{ form.security_code.label(class="form-control-label") }} {% if form.security_code.errors %} {{ form.security_code(class="form-control
+            form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.security_code.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% else %} {{ form.security_code(class="form-control form-control-lg") }} {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.expiration.label(class="form-control-label") }} {% if form.expiration.errors %} {{ form.expiration(class="form-control
+            form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.expiration.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% else %} {{ form.expiration(class="form-control form-control-lg") }} {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.amount.label(class="form-control-label") }} {% if form.amount.errors %} {{ form.amount(class="form-control
+            form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.amount.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% else %} {{ form.amount(class="form-control form-control-lg") }} {% endif %}
+          </div>
+
+
+        </fieldset>
+        <div class="form-group">
+          {{ form.submit(class="btn btn-outline-primary") }}
+
+        </div>
+      </form>
+    </div>
+    <div class="border-top pt-3">
+      <small class="text-muted"> Need An Account? <a class="ml-2" href="">Sign Up Now</a> </small>
+    </div>
+  </div>
+</main>
+<!-- End #main -->
+
+{% endblock content %}

@@ -1,8 +1,5 @@
 {% extends "base.html" %} {%block title%} NYC Water Charges {%endblock%} {% block content %}
 <script src="/static/js/charges.js"></script>
-<script>
-  console.log(formatMoney(123.456));
-</script>
 <main id="main">
   <!-- ======= Light Blue Bar ======= -->
   <section class="breadcrumbs">
@@ -11,8 +8,8 @@
         <h2>Charges</h2>
         <ol>
           <li><a href="index.html">Home</a></li>
-          <li><a href="{{ url_for('list_dev', borough=0) }}">Developments</a></li>
-          <li><a href="{{ url_for('list_dev', borough=borough_id) }}">{{borough_name}}</a></li>
+          <li class="restricted"><a href="{{ url_for('list_dev', borough=0) }}">Developments</a></li>
+          <li class="restricted"><a href="{{ url_for('list_dev', borough=borough_id) }}">{{borough_name}}</a></li>
           <li><a href="{{ url_for('buildings', id=dev_id) }}">Development: {{dev_name}}</a></li>
           <li>Building: {{bldg_name}}</li>
         </ol>
@@ -31,9 +28,9 @@
           <span class="font-italic">Development: {{dev_name}}</span>
 
           <ul>
-            <li><i class="icofont-check-circled"></i> I like this check.</li>
+            <li><i class="icofont-check-circled"></i> Logged in as: {{current_user}}</li>
           </ul>
-          <img src="/static/img/about.jpg" class="img-fluid" alt="" />
+          <img src="/static/img/neighborhoods.jpg" class="img-fluid" alt="" />
         </div>
         <div class="col-lg-8 pt-4 pt-lg-0">
           <p></p>
@@ -44,6 +41,7 @@
           >
             <thead class="text-center">
               <th>Bill ID</th>
+              <th style="display: none">Pay Bill</th>
               <th>Building</th>
               <th>Meter</th>
               <th>Revenue Month</th>
@@ -56,17 +54,23 @@
             <tbody>
               {% for b in bills %}
               <tr>
-                <td>{{b.bill_id }}</td>
+                <td>
+                  {{b.bill_id }}
+                  <a onclick="delete_bill('{{b.bill_id}}', '{{bldg_id}}')"><i name="delete" class="fa fa-trash fa-1x restricted"></i></a>
+                </td>
+
+                <td style="display: none" class="text-center"><a href="{{url_for('pay_bill')}}">Pay Bill</a></td>
                 <td>{{b.building.location}}</td>
                 <td>{{b.meter.meter_number}}</td>
                 <td class="text-center">{{b.revenue_month}}</td>
                 <td class="text-nowrap">{{b.service_start_date }}</td>
                 <td class="text-nowrap">{{b.service_end_date }}</td>
 
-                <td class="text-right">
+                <td class="text-right" id="{{b.bill_id}}charges">
                   <script>
                     document.write(formatMoney("{{b.current_charges }}"));
                   </script>
+                  <a onclick="edit('{{b.bill_id}}', '{{bldg_id}}')"> <i name="edit" class="fa fa-pencil fa-1x restricted"></i> </a>
                 </td>
                 <td class="text-center">{{ b.days }}</td>
               </tr>
@@ -78,52 +82,12 @@
     </div>
   </section>
   <!-- End Developments Section -->
-
-  <!-- ======= Facts Section ======= -->
-  <section class="facts section-bg" data-aos="fade-up">
-    <div class="container">
-      <div class="row counters">
-        <div class="col-lg-3 col-6 text-center">
-          <span data-toggle="counter-up">107</span>
-          <p>Developments</p>
-        </div>
-
-        <div class="col-lg-3 col-6 text-center">
-          <span data-toggle="counter-up">523</span>
-          <p>Buildings</p>
-        </div>
-
-        <div class="col-lg-3 col-6 text-center">
-          <span data-toggle="counter-up">757</span>
-          <p>Meters</p>
-        </div>
-
-        <div class="col-lg-3 col-6 text-center">
-          <span data-toggle="counter-up">34,627</span>
-          <p>Bills</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- End Facts Section -->
-
-  <!-- ======= About Section ======= -->
-  <section class="testimonials" data-aos="fade-up">
-    <div class="container">
-      <div class="section-title">
-        <h2>About this Project</h2>
-        <p>
-          Monthly consumption and cost data by borough and development. Data set includes utility vendor and meter information. Data
-          retrieved from NYC Open Data. Data provided by New York City Housing Authority (NYCHA)
-        </p>
-      </div>
-    </div>
-  </section>
-  <!-- End About Section -->
 </main>
 <!-- End #main -->
 
 <script>
+  $(document).ready(function () {});
+
   $("#myTable").DataTable({
     //pageLength: 20,
     paging: false,
@@ -133,7 +97,7 @@
     scrollCollapse: true,
     scroller: true,
     ordering: true,
-    order: [3, "desc"],
+    order: [0, "desc"],
     select: true,
     bSort: false,
   });

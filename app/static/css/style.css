@@ -1002,7 +1002,7 @@ section {
 # Tetstimonials
 --------------------------------------------------------------*/
 .testimonials {
-  padding: 60px 0;
+  padding: 20px 0;
 }
 
 .testimonials .section-header {
@@ -2213,7 +2213,7 @@ section {
 }
 
 #footer .footer-newsletter {
-  padding: 50px 0;
+  padding: 10px 0;
   background: #0d2735;
 }
 
@@ -2365,7 +2365,7 @@ section {
 
 #footer .copyright {
   text-align: center;
-  padding-top: 30px;
+  padding-top: 10px;
 }
 
 #footer .credits {

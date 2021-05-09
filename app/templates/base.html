@@ -83,8 +83,8 @@
         <nav class="nav-menu float-right">
           <ul>
             <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li class="drop-down">
-              <a href="">Developments</a>
+            <li class="drop-down restricted">
+              <a href="" ">Developments</a>
               <ul>
                 <li><a href="{{ url_for('list_dev', borough=0) }}">All Boroughs</a></li>
                 <li><a href="{{ url_for('list_dev', borough=1) }}">Bronx</a></li>
@@ -94,7 +94,7 @@
                 <li><a href="{{ url_for('list_dev', borough=5) }}">Staten Island</a></li>
               </ul>
             </li>
-            <li class="drop-down">
+            <li class="drop-down restricted">
               <a href="">Buildings</a>
               <ul>
                 <li><a href="{{ url_for('buildings', id='b0') }}">All Boroughs</a></li>
@@ -106,7 +106,9 @@
               </ul>
             </li>
 
-            <li><a href="{{ url_for('about')}}">About This Project</a></li>
+            <li><a href="{{url_for('pdf')}}">Documentation</a></li>
+            <li><a href="{{ url_for('logout')}}">Logout</a></li>
+
           </ul>
         </nav>
         <!-- .nav-menu -->
@@ -123,13 +125,58 @@
      </div>   
         {% block content %}{% endblock %}
 
+  <!-- ======= Facts Section ======= -->
+  <section class="facts section-bg" data-aos="fade-up"  style="padding: 30px 0; border:0px solid red" >
+    <div class="container">
+      <div class="row counters">
+        <div class="col-lg-3 col-6 text-center">
+          <span data-toggle="counter-up">107</span>
+          <p>Developments</p>
+        </div>
 
+        <div class="col-lg-3 col-6 text-center">
+          <span data-toggle="counter-up">523</span>
+          <p>Buildings</p>
+        </div>
+
+        <div class="col-lg-3 col-6 text-center">
+          <span data-toggle="counter-up">757</span>
+          <p>Meters</p>
+        </div>
+
+        <div class="col-lg-3 col-6 text-center">
+          <span data-toggle="counter-up">34,627</span>
+          <p>Bills</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Facts Section -->
+
+  <!-- ======= About Section ======= -->
+  <section class="testimonials" data-aos="fade-up">
+    <div class="container">
+      <div class="section-title">
+        <h2>About this Project</h2>
+        <p>
+          This web application was created for CISC 3810. The goal of this project was to create a full stack application, complete with a
+          database layer, business layer and a user-friendly front end interface. I stored the data in a PostgreSQL database, which I then
+          hosted on Heroku. I used Python for the business layer, with Flask for the web framework, along with SQLAlchemy as an Object
+          Relational Mapper and flask-login to handle user authentication and sessions. I used HTML 5, CSS, Javascript (some jQuery) to create
+          the front end. I used some Bootstrap features for the design, as well as the data tables.
+        </p>
+      </div>
+    </div>
+  </section>
+  <!-- End About Section -->
+
+  
     <!-- ======= Footer ======= -->
     <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
       <div class="footer-newsletter">
         <div class="container center">
-          <div class="row">
-            <div class="col-lg-6">
+          <div style = "text-align: center; border:0px solid red" class="row ">
+            <div class="col center">
 
                 <a style="color:azure" target="_blank" href="https://data.cityofnewyork.us/Housing-Development/Water-Consumption-And-Cost-2013-2020-/66be-66yr"
                   >              <img alt="NYC Open Data" style="width: 200px" src="{{url_for('static', filename='img/nyc_open_data_logo.png')}}" />
@@ -137,7 +184,7 @@
                 >
               </p>
             </div>
-            <div class="col-lg-6 center">
+            <div class="col center">
               <img style="width: 60px" src="{{url_for('static', filename='img/nycha_logo.png')}}" />
             </div>
           </div>
@@ -148,11 +195,22 @@
         <div class="copyright">
           &copy; Created by <strong><span>Rachel Friedman</span></strong>
         </div>
-        <div class="credits">April 2021</div>
+        <div class="credits">May 2021</div>
       </div>
     </footer>
     <!-- End Footer -->
 
     <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+    <script>
+      if("{{current_user}}"=="admin"){
+        $(".restricted").show();
+        $(".client").hide();
+      }
+        else {
+          $(".restricted").hide();
+          $(".client").show();
+        }
+      
+    </script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base_anon.html" %}{%block title%} NYC Water Charges: Login {%endblock%} {% block content %}
 
 <main id="main">
   <!-- ======= Light Blue Bar ======= -->
@@ -7,8 +7,7 @@
       <div class="d-flex justify-content-between align-items-center">
         <h2>Welcome</h2>
         <ol>
-          <li><a href="{{ url_for('index') }}">Sign Up</a></li>
-          <li><a href="{{ url_for('list_dev', borough=0) }}">Contact Us </a></li>
+          <li><a href="{{ url_for('register') }}">Sign Up</a></li>
         </ol>
       </div>
     </div>
@@ -44,16 +43,11 @@
           </div>
           <div class="form-check">{{ form.remember(class="form-check-input") }} {{ form.remember.label(class="form-check-label") }}</div>
         </fieldset>
-        <div class="form-group">
-          {{ form.submit(class="btn btn-outline-primary") }}
-          <small class="text-muted ml-2">
-            <a href="">Forgot Password?</a>
-          </small>
-        </div>
+        <div class="form-group">{{ form.submit(class="btn btn-outline-primary") }}</div>
       </form>
     </div>
     <div class="border-top pt-3">
-      <small class="text-muted"> Need An Account? <a class="ml-2" href="">Sign Up Now</a> </small>
+      <small class="text-muted"> Need An Account? <a class="ml-2" href="{{url_for('register')}}">Sign Up Now</a> </small>
     </div>
   </div>
 </main>
