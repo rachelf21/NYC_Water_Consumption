@@ -19,7 +19,7 @@ function edit(id, bldg_id) {
       link = "/edit/" + id + "/" + bldg_id + "/" + new_amount;
       window.location.replace(link);
     } else {
-      console.log("edit action canceled");
+      console.log("edit action canceled"); //
     }
   }
 }
