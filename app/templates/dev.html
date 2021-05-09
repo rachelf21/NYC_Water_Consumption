@@ -36,22 +36,22 @@
             style="border: 0px red solid; width: auto; margin: 0px auto"
           >
             <thead>
-              <th>ID</th>
+              <th>Dev ID</th>
               <th>Name</th>
               <th>Borough</th>
               <th>TDS</th>
               <th>EDP</th>
-              <th>AMP</th>
+              <th class="text-center">AMP</th>
             </thead>
 
             <tbody>
               {% for d in dev %}
               <tr>
-                <td>{{d.dev_id}}</td>
+                <td class="text-center">{{d.dev_id}}</td>
                 <td><a href="{{ url_for('buildings', id=d.dev_id) }}"> {{d.name }}</a></td>
-                <td>{{d.borough.name }}</td>
-                <td>{{d.tds }}</td>
-                <td>{{d.edp }}</td>
+                <td class="text-center">{{d.borough.name }}</td>
+                <td class="text-center">{{d.tds }}</td>
+                <td class="text-center">{{d.edp }}</td>
                 <td>{{d.amp }}</td>
               </tr>
               {%endfor%}

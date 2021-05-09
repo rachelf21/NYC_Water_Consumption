@@ -25,7 +25,8 @@
         <div class="col-lg-4">
           <h3>List of Buildings</h3>
           <span class="font-italic">Borough: {{borough_name}}</span><br />
-          <span class="font-italic">Development: {{dev_name}}</span>
+          <span class="font-italic">Development: {{dev_name}}</span> <br />
+          <span class="font-italic">Development ID: {{dev_id}}</span>
 
           <ul>
             <li><i class="icofont-check-circled"></i> Logged in as: {{current_user}}</li>
@@ -49,7 +50,7 @@
 
             <tbody>
               {% for b in bldg %}
-              <tr>
+              <tr class="text-center">
                 <td>{{b.dev.name}}</td>
                 <td>{{b.building_id }}</td>
                 <td>{{b.location}}</td>

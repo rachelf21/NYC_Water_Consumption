@@ -1,0 +1,61 @@
+{% extends "base.html" %} {%block title%} NYC Water Charges {%endblock%} {% block content %}
+
+<main id="main">
+  <!-- ======= Light Blue Bar ======= -->
+  <section class="breadcrumbs" >
+    <div id="section_bar" class="container" >
+      <div class="d-flex justify-content-between align-items-center" style="border: 0px solid blue">
+        <h2>Buildings</h2>
+        <ol>
+          <li class="restricted"><a href="{{ url_for('index') }}">Home</a></li>
+          <li class="restricted"><a href="{{ url_for('list_dev', borough=0) }}">Developments</a></li>
+          <li class="restricted"><a href="{{ url_for('list_dev', borough=borough_id) }}">{{borough_name}}</a></li>
+          <li><a href="{{ url_for('buildings', id=dev_id) }}">Development: {{dev_name if dev_name is not none }}</a></li>
+          <li>Buildings: All</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+  <!-- End Light Blue Bar -->
+
+  <!-- ======= About Section ======= -->
+  <section class="about" data-aos="fade-up">
+    <div style="border: 0px solid red" class="container">
+        <div class="text-center">
+          <h3>Heads up!</h3>
+
+          <ul>
+            <li><i class="icofont-check-circled"></i> Free Tier Limit</li>
+          </ul>
+          <h3><span class="font-italic">Data for this borough was removed due to Heroku's space constraints of 10K rows. <br>Only Brooklyn data is available at this time. </span></h3> <p>&nbsp;</p>
+          <img src="/static/img/neighborhoods.jpg" alt="" />
+
+        </div>
+      </div>
+  <!-- End Developments Section -->
+
+</main>
+<!-- End #main -->
+
+<script>
+  if ("{{current_user}}" == "admin") {
+    $("#section_bar").show();
+  } else {
+    $("#section_bar").show();
+  }
+
+  $("#myTable").DataTable({
+    //pageLength: 20,
+    paging: false,
+    filter: true,
+    deferRender: true,
+    //scrollY: 1200,
+    scrollCollapse: true,
+    scroller: true,
+    ordering: true,
+    order: [0, "desc"],
+    select: true,
+    bSort: false,
+  });
+</script>
+{% endblock content %}

@@ -101,7 +101,7 @@ def buildings(id):
         dev_name = bldg[0].dev.name
         borough_name = bldg[0].dev.borough.name
         borough = bldg[0].dev.borough_id
-    return render_template('buildings.html', bldg=bldg, borough_name=borough_name, dev_name=dev_name, borough='b'+str(borough), borough_id=borough)
+    return render_template('buildings.html', bldg=bldg, borough_name=borough_name, dev_name=dev_name, dev_id=id, borough='b'+str(borough), borough_id=borough)
 
 @app.route('/charges/<bldg_id>')
 @login_required
@@ -120,9 +120,10 @@ def charges(bldg_id):
         dev_id = building.dev.dev_id
         dev_name = building.dev.name
         bldg_name = building.location
-        output = f"Development: {dev_name} Building: {bldg_name} Building ID: {bldg_id} had no charges from 2018-2020. <br> Due to space constraints of 10K records on Heroku server for free accounts, I eliminated charges prior to 2018 from the database."
-        return output + "<p>Error for debugging purposes only: " + str(e)
-
+        # output = f"Development: {dev_name} Building: {bldg_name} Building ID: {bldg_id} had no charges from 2018-2020. <br> Due to space constraints of 10K records on Heroku server for free accounts, I eliminated charges prior to 2018 from the database."
+        # return output + "<p>Error for debugging purposes only: " + str(e)
+        return render_template('removed.html', bldg_id=bldg_id, bills=bills, borough_name=borough_name,
+                               dev_name=dev_name, bldg_name=bldg_name, borough_id=borough_id, dev_id=dev_id)
     return render_template('charges.html', bldg_id=bldg_id, bills=bills, borough_name=borough_name, dev_name=dev_name, bldg_name=bldg_name, borough_id=borough_id, dev_id=dev_id)
 
 #%%
@@ -131,7 +132,7 @@ def charges(bldg_id):
 def delete(bill_id, bldg_id):
     Bills.query.filter_by(bill_id=bill_id).delete()
     db.session.commit()
-    flash(f'Bill#{bill_id} was successfully deleted.', 'success')
+    flash(f'Bill #{bill_id} was successfully deleted.', 'success')
     return redirect(url_for('charges', bldg_id=bldg_id))
 
 
@@ -141,7 +142,7 @@ def delete(bill_id, bldg_id):
 def edit(bill_id, bldg_id, amount):
     Bills.query.filter_by(bill_id=int(bill_id)).first().current_charges = float(amount)
     db.session.commit()
-    flash(f'Bill#{bill_id} was successfully edited with new amount ${float(amount):.2f}', 'success')
+    flash(f'Bill #{bill_id} was successfully updated with the new amount of ${float(amount):.2f}.', 'success')
     return redirect(url_for('charges', bldg_id=bldg_id))
 
 
@@ -160,7 +161,8 @@ def pay_bill():
     #     flash('Payment Unsuccessful. Please check your credit card number.', 'danger')
     return render_template('pay_bill.html', title='Pay Bill', form=form)
 
-@app.route('/pdf')
-def pdf():
-    return send_file('static/resources/documentation.pdf', attachment_filename='documentation.pdf')
+@app.route('/pdf/<doc>')
+def pdf(doc):
+    file = 'static/resources/'+doc+'.pdf'
+    return send_file(file, attachment_filename=file)
 

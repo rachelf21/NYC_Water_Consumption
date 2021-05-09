@@ -106,7 +106,16 @@
               </ul>
             </li>
 
-            <li><a href="{{url_for('pdf')}}">Documentation</a></li>
+
+            <li class="drop-down">
+              <a href="">Documentation</a>
+              <ul>
+                <li><a href="{{ url_for('pdf', doc='nycha') }}">NYCHA User Manual</a></li>
+                <li><a href="{{ url_for('pdf', doc='users') }}">Dev/Bldg User Manual</a></li>
+                <li><a href="{{ url_for('pdf', doc='tech') }}">Tech Documentation</a></li>
+              </ul>
+            </li>
+
             <li><a href="{{ url_for('logout')}}">Logout</a></li>
 
           </ul>
@@ -120,7 +129,7 @@
     <div style="margin-top: 100px; border: 1 solid red">
 
         {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
-        <div class="alert alert-{{ category }}">{{ message }}</div>
+        <div class="text-center alert alert-{{ category }}">{{ message }}</div>
         {% endfor %} {% endif %} {% endwith %} 
      </div>   
         {% block content %}{% endblock %}
@@ -159,12 +168,15 @@
       <div class="section-title">
         <h2>About this Project</h2>
         <p>
-          This web application was created for CISC 3810. The goal of this project was to create a full stack application, complete with a
-          database layer, business layer and a user-friendly front end interface. I stored the data in a PostgreSQL database, which I then
-          hosted on Heroku. I used Python for the business layer, with Flask for the web framework, along with SQLAlchemy as an Object
-          Relational Mapper and flask-login to handle user authentication and sessions. I used HTML 5, CSS, Javascript (some jQuery) to create
-          the front end. I used some Bootstrap features for the design, as well as the data tables.
-        </p>
+
+          This web application was created for CISC 3810 Database Systems.
+          The goal of this project was to create a full stack application, complete with a database layer, business layer and a user-friendly front-end interface. 
+          The data is stored in a Postgres database, hosted on Heroku.
+          Python is used for the business layer, with Flask for the web framework,
+          along with SQLAlchemy as an Object Relational Mapper and Flask-Login for user authentication and session management.
+          The front-end is created in HTML 5, CSS, and JavaScript.Bootstrap is used to style the elements and to create a responsive web application.
+          In addition, Bootstrap DataTables are used to display the rows of data.
+          The web application is hosted on Heroku.  </p>
       </div>
     </div>
   </section>
@@ -185,7 +197,7 @@
               </p>
             </div>
             <div class="col center">
-              <img style="width: 60px" src="{{url_for('static', filename='img/nycha_logo.png')}}" />
+              <a href = "https://www1.nyc.gov/site/nycha/index.page" target="_blank"><img style="width: 60px" src="{{url_for('static', filename='img/nycha_logo.png')}}" /></a>
             </div>
           </div>
         </div>

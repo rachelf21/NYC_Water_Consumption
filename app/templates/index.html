@@ -8,7 +8,10 @@
       <div class="carousel-container">
         <h2 class="animate__animated animate__fadeInDown">NYC Water <span>Charges</span></h2>
         <p class="animate__animated animate__fadeInUp">
-          This app keeps track of water charges for developments and buildings throughout New York City.
+          This application maintains records for all water charges and bills from 2013-2021 for developments and buildings throughout New
+          York City. <br /><br />Log in as an admin to view charges for all developments, or log in as a development manager to view charges
+          for your buildings only. To create an account for your development, please have your development ID handy. Refer to the
+          <a href="{{ url_for('pdf', doc='users') }}" target="_blank" style="color: azure"> documentation </a>for a list of development IDs.
         </p>
         <a href="{{url_for('login')}}" class="btn-get-started animate__animated animate__fadeInUp">Log In</a>
         <a href="{{url_for('register')}}" class="btn-get-started animate__animated animate__fadeInUp">Sign Up</a>
